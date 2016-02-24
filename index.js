@@ -3,11 +3,6 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
 export default class ClickOutside extends Component {
-  constructor() {
-    super()
-    this.handle = this.handle.bind(this)
-  }
-
   render() {
     const { children } = this.props
     return <div>{children}</div>
@@ -21,7 +16,7 @@ export default class ClickOutside extends Component {
     document.removeEventListener('click', this.handle, true)
   }
 
-  handle(e) {
+  handle = e => {
     const { onClickOutside } = this.props
     const el = ReactDOM.findDOMNode(this)
     if (el.contains(e.target)) return
