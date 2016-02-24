@@ -1,0 +1,21 @@
+{
+  "name": "react-click-outside",
+  "version": "1.0.0",
+  "description": "ClickOutside component for React",
+  "keywords": ["react", "click", "outside", "component"],
+  "main": "build/index.js",
+  "author": "TJ Holowaychuk <tj@tjholowaychuk.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel -d build index.js",
+    "preublish": "npm run build"
+  },
+  "devDependencies": {
+    "babel": "^6.5",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
+  }
+}
