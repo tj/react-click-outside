@@ -1,8 +1,12 @@
 
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 
 export default class ClickOutside extends Component {
+  static propTypes = {
+    onClickOutside: PropTypes.func.isRequired
+  }
+
   constructor() {
     super()
     this.handle = this.handle.bind(this)
@@ -25,7 +29,6 @@ export default class ClickOutside extends Component {
     const { onClickOutside } = this.props
     const el = ReactDOM.findDOMNode(this)
     if (el.contains(e.target)) return
-    if (typeof onClickOutside != 'function') throw new Error('ClickOutside missing onClickOutside function')
     onClickOutside(e)
   }
 }
