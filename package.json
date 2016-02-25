@@ -17,6 +17,6 @@
     ]
   },
   "devDependencies": {
-    "fatigue-dev": "tj/fatigue-dev"
+    "react-fatigue-dev": "github:tj/react-fatigue-dev#ffe5280"
   }
 }

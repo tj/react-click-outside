@@ -1,2 +1,2 @@
 
-include node_modules/fatigue-dev/Makefile
+include node_modules/react-fatigue-dev/Makefile
