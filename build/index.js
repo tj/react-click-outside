@@ -40,7 +40,6 @@ var ClickOutside = function (_Component) {
       var onClickOutside = _this.props.onClickOutside;
 
       var el = _reactDom2.default.findDOMNode(_this);
-      console.log(el);
       if (el.contains(e.target)) return;
       if (typeof onClickOutside != 'function') throw new Error('ClickOutside missing onClickOutside function');
       onClickOutside(e);
@@ -73,4 +72,7 @@ var ClickOutside = function (_Component) {
   return ClickOutside;
 }(_react.Component);
 
+ClickOutside.propTypes = {
+  onClickOutside: _react.PropTypes.func.isRequired
+};
 exports.default = ClickOutside;
