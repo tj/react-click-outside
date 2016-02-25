@@ -1,8 +1,12 @@
 
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 
 export default class ClickOutside extends Component {
+  static propTypes = {
+    onClickOutside: PropTypes.func.isRequired
+  };
+
   render() {
     const { children } = this.props
     return <div>{children}</div>
