@@ -23,8 +23,6 @@ export default class ClickOutside extends Component {
   handle = e => {
     const { onClickOutside } = this.props
     const el = ReactDOM.findDOMNode(this)
-    if (el.contains(e.target)) return
-    if (typeof onClickOutside != 'function') throw new Error('ClickOutside missing onClickOutside function')
-    onClickOutside(e)
+    if (!el.contains(e.target)) onClickOutside(e)
   }
 }
