@@ -24,5 +24,5 @@ export default class ClickOutside extends Component {
     const { onClickOutside } = this.props
     const el = ReactDOM.findDOMNode(this)
     if (!el.contains(e.target)) onClickOutside(e)
-  }
+  };
 }
