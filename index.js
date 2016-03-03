@@ -8,8 +8,8 @@ export default class ClickOutside extends Component {
   };
 
   render() {
-    const { children } = this.props
-    return <div>{children}</div>
+    const { children, ...props } = this.props
+    return <div {...props}>{children}</div>
   }
 
   componentDidMount() {
