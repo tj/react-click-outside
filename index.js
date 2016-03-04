@@ -1,6 +1,5 @@
 
 import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
 
 export default class ClickOutside extends Component {
   static propTypes = {
@@ -9,7 +8,7 @@ export default class ClickOutside extends Component {
 
   render() {
     const { children, ...props } = this.props
-    return <div {...props}>{children}</div>
+    return <div {...props} ref='container'>{children}</div>
   }
 
   componentDidMount() {
@@ -22,7 +21,7 @@ export default class ClickOutside extends Component {
 
   handle = e => {
     const { onClickOutside } = this.props
-    const el = ReactDOM.findDOMNode(this)
+    const el = this.refs.container
     if (!el.contains(e.target)) onClickOutside(e)
   };
 }
