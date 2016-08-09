@@ -8,7 +8,7 @@ export default class ClickOutside extends Component {
 
   render() {
     const { children, onClickOutside, ...props } = this.props
-    return <div {...props} ref='container'>{children}</div>
+    return <div {...props} ref={ref => this.container = ref}>{children}</div>
   }
 
   componentDidMount() {
@@ -21,7 +21,7 @@ export default class ClickOutside extends Component {
 
   handle = e => {
     const { onClickOutside } = this.props
-    const el = this.refs.container
+    const el = this.container
     if (!el.contains(e.target)) onClickOutside(e)
   };
 }
