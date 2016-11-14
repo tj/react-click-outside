@@ -52,7 +52,8 @@ var ClickOutside = function (_Component) {
       var _props = this.props,
           children = _props.children,
           onClickOutside = _props.onClickOutside,
-          props = _objectWithoutProperties(_props, ['children', 'onClickOutside']);
+          useCapture = _props.useCapture,
+          props = _objectWithoutProperties(_props, ['children', 'onClickOutside', 'useCapture']);
 
       return _react2.default.createElement(
         'div',
