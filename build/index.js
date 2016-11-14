@@ -26,7 +26,7 @@ var ClickOutside = function (_Component) {
   _inherits(ClickOutside, _Component);
 
   function ClickOutside() {
-    var _Object$getPrototypeO;
+    var _ref;
 
     var _temp, _this, _ret;
 
@@ -36,10 +36,10 @@ var ClickOutside = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ClickOutside)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handle = function (e) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ClickOutside.__proto__ || Object.getPrototypeOf(ClickOutside)).call.apply(_ref, [this].concat(args))), _this), _this.handle = function (e) {
       var onClickOutside = _this.props.onClickOutside;
 
-      var el = _this.refs.container;
+      var el = _this.container;
       if (!el.contains(e.target)) onClickOutside(e);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -47,27 +47,30 @@ var ClickOutside = function (_Component) {
   _createClass(ClickOutside, [{
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var children = _props.children;
-      var onClickOutside = _props.onClickOutside;
+      var _this2 = this;
 
-      var props = _objectWithoutProperties(_props, ['children', 'onClickOutside']);
+      var _props = this.props,
+          children = _props.children,
+          onClickOutside = _props.onClickOutside,
+          props = _objectWithoutProperties(_props, ['children', 'onClickOutside']);
 
       return _react2.default.createElement(
         'div',
-        _extends({}, props, { ref: 'container' }),
+        _extends({}, props, { ref: function ref(_ref2) {
+            return _this2.container = _ref2;
+          } }),
         children
       );
     }
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      document.addEventListener('click', this.handle, true);
+      document.addEventListener('click', this.handle, this.props.useCapture);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      document.removeEventListener('click', this.handle, true);
+      document.removeEventListener('click', this.handle, this.props.useCapture);
     }
   }]);
 
@@ -75,6 +78,10 @@ var ClickOutside = function (_Component) {
 }(_react.Component);
 
 ClickOutside.propTypes = {
-  onClickOutside: _react.PropTypes.func.isRequired
+  onClickOutside: _react.PropTypes.func.isRequired,
+  useCapture: _react.PropTypes.bool
+};
+ClickOutside.defaultProps = {
+  useCapture: true
 };
 exports.default = ClickOutside;
