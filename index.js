@@ -7,7 +7,7 @@ export default class ClickOutside extends Component {
   };
 
   render() {
-    const { children, onClickOutside, ...props } = this.props
+    const { children, ...props } = this.props
     return <div {...props} ref={ref => this.container = ref}>{children}</div>
   }
 
