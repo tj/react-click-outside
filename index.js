@@ -3,11 +3,12 @@ import React, { Component, PropTypes } from 'react'
 
 export default class ClickOutside extends Component {
   static propTypes = {
-    onClickOutside: PropTypes.func.isRequired
+    onClickOutside: PropTypes.func.isRequired,
+    exceptions: PropTypes.array
   };
 
   render() {
-    const { children, onClickOutside, ...props } = this.props
+    const { children, onClickOutside, exceptions, ...props } = this.props
     return <div {...props} ref={ref => this.container = ref}>{children}</div>
   }
 
@@ -20,8 +21,11 @@ export default class ClickOutside extends Component {
   }
 
   handle = e => {
-    const { onClickOutside } = this.props
+    const { onClickOutside, exceptions } = this.props
+    const exceptionsApproved = exceptions.some((except) => {
+      return ![e.target.className, e.target.id].includes(except);
+    });
     const el = this.container
-    if (!el.contains(e.target)) onClickOutside(e)
+    if (!el.contains(e.target) && exceptionsApproved) onClickOutside(e)
   };
 }
