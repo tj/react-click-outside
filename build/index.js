@@ -26,7 +26,7 @@ var ClickOutside = function (_Component) {
   _inherits(ClickOutside, _Component);
 
   function ClickOutside() {
-    var _Object$getPrototypeO;
+    var _ref;
 
     var _temp, _this, _ret;
 
@@ -36,26 +36,35 @@ var ClickOutside = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ClickOutside)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handle = function (e) {
-      var onClickOutside = _this.props.onClickOutside;
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ClickOutside.__proto__ || Object.getPrototypeOf(ClickOutside)).call.apply(_ref, [this].concat(args))), _this), _this.handle = function (e) {
+      var _this$props = _this.props,
+          onClickOutside = _this$props.onClickOutside,
+          exceptions = _this$props.exceptions;
 
-      var el = _this.refs.container;
-      if (!el.contains(e.target)) onClickOutside(e);
+      var exceptionsApproved = exceptions.some(function (except) {
+        return ![e.target.className, e.target.id].includes(except);
+      });
+      var el = _this.container;
+      if (!el.contains(e.target) && exceptionsApproved) onClickOutside(e);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(ClickOutside, [{
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var children = _props.children;
-      var onClickOutside = _props.onClickOutside;
+      var _this2 = this;
 
-      var props = _objectWithoutProperties(_props, ['children', 'onClickOutside']);
+      var _props = this.props,
+          children = _props.children,
+          onClickOutside = _props.onClickOutside,
+          exceptions = _props.exceptions,
+          props = _objectWithoutProperties(_props, ['children', 'onClickOutside', 'exceptions']);
 
       return _react2.default.createElement(
         'div',
-        _extends({}, props, { ref: 'container' }),
+        _extends({}, props, { ref: function ref(_ref2) {
+            return _this2.container = _ref2;
+          } }),
         children
       );
     }
@@ -75,6 +84,7 @@ var ClickOutside = function (_Component) {
 }(_react.Component);
 
 ClickOutside.propTypes = {
-  onClickOutside: _react.PropTypes.func.isRequired
+  onClickOutside: _react.PropTypes.func.isRequired,
+  exceptions: _react.PropTypes.array
 };
 exports.default = ClickOutside;
