@@ -21,12 +21,15 @@ export default class ClickOutside extends Component {
   }
 
   handle = e => {
-    const { onClickOutside, exceptions } = this.props
+    const {onClickOutside, exceptions} = this.props
+
+    let exceptionsApproved             = false
     if (exceptions) {
-      const exceptionsApproved = exceptions.some((except) => {
+      exceptionsApproved = exceptions.some((except) => {
         return ![e.target.className, e.target.id].includes(except);
       });
     }
+
     const el = this.container
     if (!el.contains(e.target) && exceptionsApproved) onClickOutside(e)
   };
