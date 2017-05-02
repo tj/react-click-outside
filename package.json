@@ -1,6 +1,6 @@
 {
   "name": "react-click-outside",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "ClickOutside component for React",
   "keywords": [
     "react",
@@ -17,6 +17,7 @@
     ]
   },
   "devDependencies": {
+    "prop-types": "^15.5.8",
     "react-fatigue-dev": "github:tj/react-fatigue-dev#704f778"
   }
 }
