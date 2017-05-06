@@ -4,11 +4,16 @@ import PropTypes from 'prop-types'
 
 export default class ClickOutside extends Component {
   static propTypes = {
-    onClickOutside: PropTypes.func.isRequired
+    onClickOutside: PropTypes.func.isRequired,
+    shouldClickOutside: PropTypes.func
+  };
+
+  static defaultProps = {
+    shouldClickOutside: () => true
   };
 
   render() {
-    const { children, onClickOutside, ...props } = this.props
+    const { children, onClickOutside, shouldClickOutside, ...props } = this.props
     return <div {...props} ref={ref => this.container = ref}>{children}</div>
   }
 
@@ -21,8 +26,8 @@ export default class ClickOutside extends Component {
   }
 
   handle = e => {
-    const { onClickOutside } = this.props
+    const { onClickOutside, shouldClickOutside } = this.props
     const el = this.container
-    if (!el.contains(e.target)) onClickOutside(e)
+    if (!el.contains(e.target) && shouldClickOutside(e)) onClickOutside(e)
   };
 }
