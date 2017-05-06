@@ -4,20 +4,25 @@ import PropTypes from 'prop-types'
 
 export default class ClickOutside extends Component {
   static propTypes = {
-    onClickOutside: PropTypes.func.isRequired
+    onClickOutside: PropTypes.func.isRequired,
+    useCapture: PropTypes.bool
+  };
+
+  static defaultProps = {
+    useCapture: true
   };
 
   render() {
-    const { children, onClickOutside, ...props } = this.props
+    const { children, onClickOutside, useCapture, ...props } = this.props
     return <div {...props} ref={ref => this.container = ref}>{children}</div>
   }
 
   componentDidMount() {
-    document.addEventListener('click', this.handle, true)
+    document.addEventListener('click', this.handle, this.props.useCapture)
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handle, true)
+    document.removeEventListener('click', this.handle, this.props.useCapture)
   }
 
   handle = e => {
