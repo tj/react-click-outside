@@ -7,9 +7,18 @@ export default class ClickOutside extends Component {
     onClickOutside: PropTypes.func.isRequired
   };
 
+  constructor(props) {
+    super(props)
+    this.getContainer = this.getContainer.bind(this)
+  }
+
+  getContainer(ref) {
+    this.container = ref
+  }
+
   render() {
     const { children, onClickOutside, ...props } = this.props
-    return <div {...props} ref={ref => this.container = ref}>{children}</div>
+    return <div {...props} ref={this.getContainer}>{children}</div>
   }
 
   componentDidMount() {
