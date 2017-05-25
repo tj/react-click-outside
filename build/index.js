@@ -29,30 +29,30 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ClickOutside = function (_Component) {
   _inherits(ClickOutside, _Component);
 
-  function ClickOutside() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function ClickOutside(props) {
     _classCallCheck(this, ClickOutside);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = _possibleConstructorReturn(this, (ClickOutside.__proto__ || Object.getPrototypeOf(ClickOutside)).call(this, props));
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ClickOutside.__proto__ || Object.getPrototypeOf(ClickOutside)).call.apply(_ref, [this].concat(args))), _this), _this.handle = function (e) {
+    _this.handle = function (e) {
       var onClickOutside = _this.props.onClickOutside;
 
       var el = _this.container;
       if (!el.contains(e.target)) onClickOutside(e);
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    };
+
+    _this.getContainer = _this.getContainer.bind(_this);
+    return _this;
   }
 
   _createClass(ClickOutside, [{
+    key: 'getContainer',
+    value: function getContainer(ref) {
+      this.container = ref;
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var _props = this.props,
           children = _props.children,
           onClickOutside = _props.onClickOutside,
@@ -60,9 +60,7 @@ var ClickOutside = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        _extends({}, props, { ref: function ref(_ref2) {
-            return _this2.container = _ref2;
-          } }),
+        _extends({}, props, { ref: this.getContainer }),
         children
       );
     }
