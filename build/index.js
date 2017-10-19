@@ -38,7 +38,10 @@ var ClickOutside = function (_Component) {
       var onClickOutside = _this.props.onClickOutside;
 
       var el = _this.container;
-      if (!el.contains(e.target)) onClickOutside(e);
+      if (!el.contains(e.target)) {
+        e.preventDefault();
+        onClickOutside(e);
+      }
     };
 
     _this.getContainer = _this.getContainer.bind(_this);
@@ -67,11 +70,13 @@ var ClickOutside = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      document.addEventListener('touchend', this.handle, true);
       document.addEventListener('click', this.handle, true);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
+      document.removeEventListener('touchend', this.handle, true);
       document.removeEventListener('click', this.handle, true);
     }
   }]);
