@@ -22,16 +22,21 @@ export default class ClickOutside extends Component {
   }
 
   componentDidMount() {
+    document.addEventListener('touchend', this.handle, true)
     document.addEventListener('click', this.handle, true)
   }
 
   componentWillUnmount() {
+    document.removeEventListener('touchend', this.handle, true)
     document.removeEventListener('click', this.handle, true)
   }
 
   handle = e => {
     const { onClickOutside } = this.props
     const el = this.container
-    if (!el.contains(e.target)) onClickOutside(e)
+    if (!el.contains(e.target)) {
+      e.preventDefault()
+      onClickOutside(e)
+    }
   };
 }
