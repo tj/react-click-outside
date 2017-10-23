@@ -35,6 +35,8 @@ var ClickOutside = function (_Component) {
     var _this = _possibleConstructorReturn(this, (ClickOutside.__proto__ || Object.getPrototypeOf(ClickOutside)).call(this, props));
 
     _this.handle = function (e) {
+      if (e.type === 'touchend') _this.isTouch = true;
+      if (e.type === 'click' && _this.isTouch) return;
       var onClickOutside = _this.props.onClickOutside;
 
       var el = _this.container;
@@ -42,6 +44,7 @@ var ClickOutside = function (_Component) {
     };
 
     _this.getContainer = _this.getContainer.bind(_this);
+    _this.isTouch = false;
     return _this;
   }
 
@@ -67,11 +70,13 @@ var ClickOutside = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      document.addEventListener('touchend', this.handle, true);
       document.addEventListener('click', this.handle, true);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
+      document.removeEventListener('touchend', this.handle, true);
       document.removeEventListener('click', this.handle, true);
     }
   }]);
