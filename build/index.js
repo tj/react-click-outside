@@ -40,7 +40,7 @@ var ClickOutside = function (_Component) {
       var onClickOutside = _this.props.onClickOutside;
 
       var el = _this.container;
-      if (!el.contains(e.target)) onClickOutside(e);
+      if (el && !el.contains(e.target)) onClickOutside(e);
     };
 
     _this.getContainer = _this.getContainer.bind(_this);
