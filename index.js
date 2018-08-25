@@ -3,7 +3,14 @@ import PropTypes from 'prop-types'
 
 export default class ClickOutside extends Component {
   static propTypes = {
-    onClickOutside: PropTypes.func.isRequired
+    onClickOutside: PropTypes.func.isRequired,
+    exceptionElementClass: PropTypes.array,
+    exceptionElementId: PropTypes.array
+  }
+
+  static defaultProps = {
+    exceptionElementClass: [],
+    exceptionElementId: []
   }
 
   constructor(props) {
@@ -34,8 +41,12 @@ export default class ClickOutside extends Component {
   handle = e => {
     if (e.type === 'touchend') this.isTouch = true
     if (e.type === 'click' && this.isTouch) return
-    const { onClickOutside } = this.props
     const el = this.container
-    if (el && !el.contains(e.target)) onClickOutside(e)
+    const { className, id } = e.target
+    const { onClickOutside, exceptionElementClass, exceptionElementId } = this.props
+    const isExceptionByClass = className.split(' ').some(name => exceptionElementClass.includes(name))
+    const isExceptionById = exceptionElementId.includes(id)
+    const isException = isExceptionByClass || isExceptionById
+    if (el && !el.contains(e.target) && !isException) onClickOutside(e)
   }
 }

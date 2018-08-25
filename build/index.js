@@ -37,10 +37,21 @@ var ClickOutside = function (_Component) {
     _this.handle = function (e) {
       if (e.type === 'touchend') _this.isTouch = true;
       if (e.type === 'click' && _this.isTouch) return;
-      var onClickOutside = _this.props.onClickOutside;
-
       var el = _this.container;
-      if (el && !el.contains(e.target)) onClickOutside(e);
+      var _e$target = e.target,
+          className = _e$target.className,
+          id = _e$target.id;
+      var _this$props = _this.props,
+          onClickOutside = _this$props.onClickOutside,
+          exceptionElementClass = _this$props.exceptionElementClass,
+          exceptionElementId = _this$props.exceptionElementId;
+
+      var isExceptionByClass = className.split(' ').some(function (name) {
+        return exceptionElementClass.includes(name);
+      });
+      var isExceptionById = exceptionElementId.includes(id);
+      var isException = isExceptionByClass || isExceptionById;
+      if (el && !el.contains(e.target) && !isException) onClickOutside(e);
     };
 
     _this.getContainer = _this.getContainer.bind(_this);
@@ -85,6 +96,12 @@ var ClickOutside = function (_Component) {
 }(_react.Component);
 
 ClickOutside.propTypes = {
-  onClickOutside: _propTypes2.default.func.isRequired
+  onClickOutside: _propTypes2.default.func.isRequired,
+  exceptionElementClass: _propTypes2.default.array,
+  exceptionElementId: _propTypes2.default.array
+};
+ClickOutside.defaultProps = {
+  exceptionElementClass: [],
+  exceptionElementId: []
 };
 exports.default = ClickOutside;

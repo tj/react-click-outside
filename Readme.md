@@ -11,8 +11,14 @@ $ npm install tj/react-click-outside
 
 ## Example
 
+The parameter `exceptionElementClass` and `exceptionElementId` are optional.
+
 ```js
-<ClickOutside onClickOutside={::this.close}>
+<ClickOutside
+    onClickOutside={::this.close}
+    exceptionElementClass={['elementClassName']}
+    exceptionElementId={['elementIdName']}
+    >
   <p>Im a menu or something that you want to hide when clicking outside.</p>
 </ClickOutside>
 ```
