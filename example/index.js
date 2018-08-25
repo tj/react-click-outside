@@ -26,8 +26,8 @@ class Menu extends Component {
           exceptionElementId={['exception-by-id']}>
         <a href="#" onClick={::this.toggle}>Menu</a>
         {open ? items : null}
-        <p className='exception-by-class'>Exception by class</p>
-        <p id='exception-by-id'>Exception by id</p>
+        <p className='exception-by-class' style={{ border: '1px solid black' }}>Exception by class</p>
+        <p id='exception-by-id' style={{ border: '1px solid black' }}>Exception by id</p>
       </ClickOutside>
     </div>
   }
