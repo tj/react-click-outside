@@ -47,9 +47,9 @@ var ClickOutside = function (_Component) {
           exceptionElementId = _this$props.exceptionElementId;
 
       var isExceptionByClass = className.split(' ').some(function (name) {
-        return exceptionElementClass.includes(name);
+        return exceptionElementClass.indexOf(name) > -1;
       });
-      var isExceptionById = exceptionElementId.includes(id);
+      var isExceptionById = exceptionElementId.indexOf(id) > -1;
       var isException = isExceptionByClass || isExceptionById;
       if (el && !el.contains(e.target) && !isException) onClickOutside(e);
     };
