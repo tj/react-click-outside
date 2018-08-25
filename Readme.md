@@ -17,8 +17,7 @@ The parameter `exceptionElementClass` and `exceptionElementId` are optional.
 <ClickOutside
     onClickOutside={::this.close}
     exceptionElementClass={['elementClassName']}
-    exceptionElementId={['elementIdName']}
-    >
+    exceptionElementId={['elementIdName']}>
   <p>Im a menu or something that you want to hide when clicking outside.</p>
 </ClickOutside>
 ```
