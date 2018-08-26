@@ -44,7 +44,6 @@ export default class ClickOutside extends Component {
     const { className = '', id = '' } = e.target
     const { onClickOutside, exceptionElementClass, exceptionElementId } = this.props
     const el = this.container
-    const isContain = el && el.contains(e.target)
     let isException = false;
 
     if(exceptionElementClass.length > 0 || exceptionElementId.length > 0) {
@@ -55,6 +54,6 @@ export default class ClickOutside extends Component {
         isException = isExceptionByClass || isExceptionById
     }
 
-    if (!isException && !isContain) onClickOutside(e)
+    if (el && !el.contains(e.target) && !isException) onClickOutside(e)
   }
 }
