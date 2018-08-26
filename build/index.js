@@ -37,21 +37,31 @@ var ClickOutside = function (_Component) {
     _this.handle = function (e) {
       if (e.type === 'touchend') _this.isTouch = true;
       if (e.type === 'click' && _this.isTouch) return;
-      var el = _this.container;
       var _e$target = e.target,
-          className = _e$target.className,
-          id = _e$target.id;
+          _e$target$className = _e$target.className,
+          className = _e$target$className === undefined ? '' : _e$target$className,
+          _e$target$id = _e$target.id,
+          id = _e$target$id === undefined ? '' : _e$target$id;
       var _this$props = _this.props,
           onClickOutside = _this$props.onClickOutside,
           exceptionElementClass = _this$props.exceptionElementClass,
           exceptionElementId = _this$props.exceptionElementId;
 
-      var isExceptionByClass = className.split(' ').some(function (name) {
-        return exceptionElementClass.indexOf(name) > -1;
-      });
-      var isExceptionById = exceptionElementId.indexOf(id) > -1;
-      var isException = isExceptionByClass || isExceptionById;
-      if (el && !el.contains(e.target) && !isException) onClickOutside(e);
+      var el = _this.container;
+      var isContain = el && el.contains(e.target);
+      var isException = false;
+
+      if (exceptionElementClass.length > 0 || exceptionElementId.length > 0) {
+        var isExceptionByClass = className.split(' ').some(function (name) {
+          return exceptionElementClass.indexOf(name) > -1;
+        }) || exceptionElementClass.some(function (name) {
+          return e.target.matches('.' + name + ' *');
+        });
+        var isExceptionById = exceptionElementId.indexOf(id) > -1 || id !== '' && e.target.matches('#' + id + ' *');
+        isException = isExceptionByClass || isExceptionById;
+      }
+
+      if (!isException && !isContain) onClickOutside(e);
     };
 
     _this.getContainer = _this.getContainer.bind(_this);

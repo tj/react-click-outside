@@ -41,12 +41,20 @@ export default class ClickOutside extends Component {
   handle = e => {
     if (e.type === 'touchend') this.isTouch = true
     if (e.type === 'click' && this.isTouch) return
-    const el = this.container
-    const { className, id } = e.target
+    const { className = '', id = '' } = e.target
     const { onClickOutside, exceptionElementClass, exceptionElementId } = this.props
-    const isExceptionByClass = className.split(' ').some(name => exceptionElementClass.indexOf(name) > -1)
-    const isExceptionById = exceptionElementId.indexOf(id) > -1
-    const isException = isExceptionByClass || isExceptionById
-    if (el && !el.contains(e.target) && !isException) onClickOutside(e)
+    const el = this.container
+    const isContain = el && el.contains(e.target)
+    let isException = false;
+
+    if(exceptionElementClass.length > 0 || exceptionElementId.length > 0) {
+        const isExceptionByClass = className.split(' ').some(name => exceptionElementClass.indexOf(name) > -1)
+            || exceptionElementClass.some(name => e.target.matches(`.${name} *`))
+        const isExceptionById = exceptionElementId.indexOf(id) > -1
+            || (id !== '' && e.target.matches(`#${id} *`))
+        isException = isExceptionByClass || isExceptionById
+    }
+
+    if (!isException && !isContain) onClickOutside(e)
   }
 }

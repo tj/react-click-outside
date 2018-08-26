@@ -22,13 +22,17 @@ class Menu extends Component {
     return <div className="Menu">
       <ClickOutside
           onClickOutside={::this.hide} 
-          exceptionElementClass={['exception-by-class']}
+          exceptionElementClass={['exception-by-class', 'outer']}
           exceptionElementId={['exception-by-id']}>
         <a href="#" onClick={::this.toggle}>Menu</a>
         {open ? items : null}
-        <p className='exception-by-class' style={{ border: '1px solid black' }}>Exception by class</p>
-        <p id='exception-by-id' style={{ border: '1px solid black' }}>Exception by id</p>
       </ClickOutside>
+        <p className='exception-by-class'>Exception by class</p>
+        <p id='exception-by-id'>Exception by id</p>
+        <div className='outer'>
+        Outer(Exception by class)
+        <p className='inner'>Inner</p>
+        </div>
     </div>
   }
 
