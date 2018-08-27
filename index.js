@@ -50,7 +50,7 @@ export default class ClickOutside extends Component {
         const isExceptionByClass = className.split(' ').some(name => exceptionElementClass.indexOf(name) > -1)
             || exceptionElementClass.some(name => e.target.matches(`.${name} *`))
         const isExceptionById = exceptionElementId.indexOf(id) > -1
-            || (id !== '' && e.target.matches(`#${id} *`))
+            || exceptionElementId.some(id => e.target.matches(`#${id} *`))
         isException = isExceptionByClass || isExceptionById
     }
 

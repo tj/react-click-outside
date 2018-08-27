@@ -56,7 +56,9 @@ var ClickOutside = function (_Component) {
         }) || exceptionElementClass.some(function (name) {
           return e.target.matches('.' + name + ' *');
         });
-        var isExceptionById = exceptionElementId.indexOf(id) > -1 || id !== '' && e.target.matches('#' + id + ' *');
+        var isExceptionById = exceptionElementId.indexOf(id) > -1 || exceptionElementId.some(function (id) {
+          return e.target.matches('#' + id + ' *');
+        });
         isException = isExceptionByClass || isExceptionById;
       }
 
