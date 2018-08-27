@@ -37,10 +37,32 @@ var ClickOutside = function (_Component) {
     _this.handle = function (e) {
       if (e.type === 'touchend') _this.isTouch = true;
       if (e.type === 'click' && _this.isTouch) return;
-      var onClickOutside = _this.props.onClickOutside;
+      var _e$target = e.target,
+          _e$target$className = _e$target.className,
+          className = _e$target$className === undefined ? '' : _e$target$className,
+          _e$target$id = _e$target.id,
+          id = _e$target$id === undefined ? '' : _e$target$id;
+      var _this$props = _this.props,
+          onClickOutside = _this$props.onClickOutside,
+          exceptionElementClass = _this$props.exceptionElementClass,
+          exceptionElementId = _this$props.exceptionElementId;
 
       var el = _this.container;
-      if (el && !el.contains(e.target)) onClickOutside(e);
+      var isException = false;
+
+      if (exceptionElementClass.length > 0 || exceptionElementId.length > 0) {
+        var isExceptionByClass = className.split(' ').some(function (name) {
+          return exceptionElementClass.indexOf(name) > -1;
+        }) || exceptionElementClass.some(function (name) {
+          return e.target.matches('.' + name + ' *');
+        });
+        var isExceptionById = exceptionElementId.indexOf(id) > -1 || exceptionElementId.some(function (id) {
+          return e.target.matches('#' + id + ' *');
+        });
+        isException = isExceptionByClass || isExceptionById;
+      }
+
+      if (el && !el.contains(e.target) && !isException) onClickOutside(e);
     };
 
     _this.getContainer = _this.getContainer.bind(_this);
@@ -85,6 +107,12 @@ var ClickOutside = function (_Component) {
 }(_react.Component);
 
 ClickOutside.propTypes = {
-  onClickOutside: _propTypes2.default.func.isRequired
+  onClickOutside: _propTypes2.default.func.isRequired,
+  exceptionElementClass: _propTypes2.default.array,
+  exceptionElementId: _propTypes2.default.array
+};
+ClickOutside.defaultProps = {
+  exceptionElementClass: [],
+  exceptionElementId: []
 };
 exports.default = ClickOutside;
