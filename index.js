@@ -24,11 +24,13 @@ export default class ClickOutside extends Component {
   componentDidMount() {
     document.addEventListener('touchend', this.handle, true)
     document.addEventListener('click', this.handle, true)
+    document.addEventListener('contextmenu', this.handle, true)
   }
 
   componentWillUnmount() {
     document.removeEventListener('touchend', this.handle, true)
     document.removeEventListener('click', this.handle, true)
+    document.removeEventListener('contextmenu', this.handle, true)
   }
 
   handle = e => {
