@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 
 export default class ClickOutside extends Component {
   static propTypes = {
-    onClickOutside: PropTypes.func.isRequired
+    onClickOutside: PropTypes.func.isRequired,
+    ignored: PropTypes.array
+  }
+
+  static defaultProps = {
+    ignored: []
   }
 
   constructor(props) {
@@ -36,6 +41,18 @@ export default class ClickOutside extends Component {
     if (e.type === 'click' && this.isTouch) return
     const { onClickOutside } = this.props
     const el = this.container
-    if (el && !el.contains(e.target)) onClickOutside(e)
+    if (el && !el.contains(e.target) && !this.isClickedIgnoredElements(e.target)) onClickOutside(e)
   }
+
+  isClickedIgnoredElements = clicked => {
+    const { ignore } = this.props;
+
+    if (!ignore || (ignore && !ignore.length)) {
+      return;
+    }
+
+    return ignore
+      .map(el => clicked.isEqualNode(document.querySelector(el)))
+      .some(boolean => boolean === true);
+  };
 }
