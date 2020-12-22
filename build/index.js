@@ -43,6 +43,10 @@ var ClickOutside = function (_Component) {
       if (el && !el.contains(e.target)) onClickOutside(e);
     };
 
+    _this.resetIsTouch = function () {
+      return _this.isTouch = false;
+    };
+
     _this.getContainer = _this.getContainer.bind(_this);
     _this.isTouch = false;
     return _this;
@@ -72,12 +76,14 @@ var ClickOutside = function (_Component) {
     value: function componentDidMount() {
       document.addEventListener('touchend', this.handle, true);
       document.addEventListener('click', this.handle, true);
+      window.addEventListener('resize', this.resetIsTouch, true);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       document.removeEventListener('touchend', this.handle, true);
       document.removeEventListener('click', this.handle, true);
+      window.removeEventListener('resize', this.resetIsTouch, true);
     }
   }]);
 
