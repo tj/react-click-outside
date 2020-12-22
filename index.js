@@ -24,11 +24,13 @@ export default class ClickOutside extends Component {
   componentDidMount() {
     document.addEventListener('touchend', this.handle, true)
     document.addEventListener('click', this.handle, true)
+    window.addEventListener('resize', this.resetIsTouch, true)
   }
 
   componentWillUnmount() {
     document.removeEventListener('touchend', this.handle, true)
     document.removeEventListener('click', this.handle, true)
+    window.removeEventListener('resize', this.resetIsTouch, true)
   }
 
   handle = e => {
@@ -38,4 +40,6 @@ export default class ClickOutside extends Component {
     const el = this.container
     if (el && !el.contains(e.target)) onClickOutside(e)
   }
+
+  resetIsTouch = () => this.isTouch = false
 }
